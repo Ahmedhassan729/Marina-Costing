@@ -1,0 +1,24 @@
+{
+  "actions": [],
+  "creation": "2026-06-24 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": ["cost_type", "description", "unit", "qty_per_garment", "cost_per_unit", "cost_per_garment"],
+  "fields": [
+    {"fieldname": "cost_type", "fieldtype": "Select", "in_list_view": 1, "label": "Cost Type", "options": "Polybag\nHangtag\nMain Label\nCare Label\nBarcode / Sticker\nCarton\nTesting / Compliance\nInspection\nFreight\nDuty / Customs\nOther"},
+    {"fieldname": "description", "fieldtype": "Data", "label": "Description"},
+    {"fieldname": "unit", "fieldtype": "Select", "label": "Unit", "options": "piece\nset\nunit\ncarton\nsample"},
+    {"default": "0", "fieldname": "qty_per_garment", "fieldtype": "Float", "label": "Qty Per Garment"},
+    {"default": "0", "fieldname": "cost_per_unit", "fieldtype": "Currency", "label": "Cost Per Unit"},
+    {"default": "0", "fieldname": "cost_per_garment", "fieldtype": "Currency", "in_list_view": 1, "label": "Cost Per Garment", "read_only": 1}
+  ],
+  "istable": 1,
+  "modified": "2026-06-24 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Marina Costing",
+  "name": "Supplier Costing Packaging Line",
+  "owner": "Administrator",
+  "permissions": []
+}
+

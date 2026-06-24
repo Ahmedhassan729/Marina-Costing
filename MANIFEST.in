@@ -1,0 +1,9 @@
+include marina_costing/modules.txt
+include marina_costing/patches.txt
+recursive-include marina_costing *.json
+recursive-include marina_costing *.py
+recursive-include marina_costing *.js
+recursive-include marina_costing *.html
+recursive-include marina_costing *.css
+recursive-include marina_costing/public *
+

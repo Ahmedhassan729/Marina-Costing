@@ -1,0 +1,22 @@
+{
+  "actions": [],
+  "creation": "2026-06-24 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": ["size", "sample_qty", "bulk_qty", "size_curve_percentage"],
+  "fields": [
+    {"fieldname": "size", "fieldtype": "Select", "in_list_view": 1, "label": "Size", "options": "XXS\nXS\nS\nM\nL\nXL\nXXL"},
+    {"default": "0", "fieldname": "sample_qty", "fieldtype": "Int", "label": "Sample Qty"},
+    {"default": "0", "fieldname": "bulk_qty", "fieldtype": "Int", "label": "Bulk Qty"},
+    {"default": "0", "fieldname": "size_curve_percentage", "fieldtype": "Percent", "in_list_view": 1, "label": "Size Curve %", "read_only": 1}
+  ],
+  "istable": 1,
+  "modified": "2026-06-24 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Marina Costing",
+  "name": "Supplier Costing Size Line",
+  "owner": "Administrator",
+  "permissions": []
+}
+
