@@ -19,7 +19,7 @@ def can_manage_all_quotes():
 @frappe.whitelist()
 def get_supplier_costing_quotes(status=None):
     filters = {}
-    if status in {"Pending", "Closed"}:
+    if status in {"Pending", "Approved", "Rejected", "Cancelled"}:
         filters["status"] = status
     if not can_manage_all_quotes():
         filters["owner"] = frappe.session.user
@@ -31,9 +31,8 @@ def get_supplier_costing_quotes(status=None):
             "name",
             "status",
             "supplier",
-            "supplier_name",
             "style_no",
-            "style_name",
+            "style_description",
             "category",
             "currency",
             "quoted_unit_cost",
@@ -48,11 +47,8 @@ def get_supplier_costing_quotes(status=None):
 @frappe.whitelist()
 def create_supplier_costing_quote():
     doc = frappe.new_doc("Supplier Costing Quote")
-    doc.brand = "Marina Fashion Retail"
     doc.status = "Pending"
     doc.currency = "RMB"
-    doc.incoterm = "FOB"
-    doc.sample_stage = "Proto"
 
     for size in ["XXS", "XS", "S", "M", "L", "XL", "XXL"]:
         doc.append("size_curve", {"size": size})
@@ -62,11 +58,11 @@ def create_supplier_costing_quote():
         "Fabric consumption plausible vs tech pack",
         "Wastage reasonable for print, stripe, placement, or embellishment",
         "MOQ and MCQ acceptable",
-        "Sample cost separated from bulk price",
+        "Sampling charge per unit entered when applicable",
         "Trims, labels, and branding included",
         "Packaging requirements included",
         "Testing and compliance included or clearly excluded",
-        "Freight and incoterm clear",
+        "Freight and commercial terms clear",
         "Quote validity date provided",
         "Negotiation or redesign decision recorded",
     ]:
@@ -79,7 +75,7 @@ def create_supplier_costing_quote():
 @frappe.whitelist()
 def close_supplier_costing_quote(name):
     doc = frappe.get_doc("Supplier Costing Quote", name)
-    doc.status = "Closed"
+    doc.status = "Approved"
     doc.save()
     return doc.name
 
@@ -90,4 +86,3 @@ def reopen_supplier_costing_quote(name):
     doc.status = "Pending"
     doc.save()
     return doc.name
-
