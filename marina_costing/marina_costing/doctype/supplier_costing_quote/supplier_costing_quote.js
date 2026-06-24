@@ -1,11 +1,6 @@
 frappe.ui.form.on("Supplier Costing Quote", {
-    setup(frm) {
-        frm.set_query("supplier", () => ({ filters: { disabled: 0 } }));
-        frm.set_query("item", () => ({ filters: { disabled: 0 } }));
-    },
-
     refresh(frm) {
-        frm.set_value("brand", "Marina Fashion Retail");
+        frm.trigger("calculate_target_unit_cost");
 
         if (frm.is_new() && !frm.doc.review_lines?.length) {
             frappe.call({
@@ -22,15 +17,44 @@ frappe.ui.form.on("Supplier Costing Quote", {
         }
 
         if (!frm.is_new()) {
-            frm.add_custom_button(__("Close Quote"), () => {
-                frm.set_value("status", "Closed");
+            frm.add_custom_button(__("Approve"), () => {
+                frm.set_value("status", "Approved");
                 frm.save();
             });
-            frm.add_custom_button(__("Reopen"), () => {
+            frm.add_custom_button(__("Reject"), () => {
+                frm.set_value("status", "Rejected");
+                frm.save();
+            });
+            frm.add_custom_button(__("Cancel"), () => {
+                frm.set_value("status", "Cancelled");
+                frm.save();
+            });
+            frm.add_custom_button(__("Set Pending"), () => {
                 frm.set_value("status", "Pending");
                 frm.save();
             });
         }
     },
-});
 
+    target_retail_price(frm) {
+        frm.trigger("calculate_target_unit_cost");
+    },
+
+    target_margin_percentage(frm) {
+        frm.trigger("calculate_target_unit_cost");
+    },
+
+    conversion_rate(frm) {
+        frm.trigger("calculate_target_unit_cost");
+    },
+
+    calculate_target_unit_cost(frm) {
+        const conversion_rate = flt(frm.doc.conversion_rate) || 1;
+        const target_unit_cost =
+            (flt(frm.doc.target_retail_price) *
+                (1 - flt(frm.doc.target_margin_percentage) / 100)) /
+            conversion_rate;
+
+        frm.set_value("target_unit_cost", target_unit_cost);
+    },
+});
