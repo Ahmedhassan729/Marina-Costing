@@ -8,5 +8,4 @@ def get_context(context):
     context.title = "Supplier Costing"
     context.no_cache = 1
     context.pending_count = frappe.db.count("Supplier Costing Quote", {"status": "Pending"})
-    context.closed_count = frappe.db.count("Supplier Costing Quote", {"status": "Closed"})
-
+    context.approved_count = frappe.db.count("Supplier Costing Quote", {"status": "Approved"})
