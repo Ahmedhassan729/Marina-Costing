@@ -1,8 +1,11 @@
 frappe.ui.form.on("Supplier Costing Quote", {
     refresh(frm) {
         frm.trigger("calculate_target_unit_cost");
+        const can_manage = ["Supplier Costing Manager", "System Manager"].some(
+            (role) => frappe.user_roles.includes(role)
+        );
 
-        if (frm.is_new() && !frm.doc.review_lines?.length) {
+        if (frm.is_new() && can_manage && !frm.doc.review_lines?.length) {
             frappe.call({
                 method: "marina_costing.marina_costing.doctype.supplier_costing_quote.supplier_costing_quote.get_default_review_lines",
                 callback(response) {
@@ -16,7 +19,7 @@ frappe.ui.form.on("Supplier Costing Quote", {
             });
         }
 
-        if (!frm.is_new()) {
+        if (!frm.is_new() && can_manage) {
             frm.add_custom_button(__("Approve"), () => {
                 frm.set_value("status", "Approved");
                 frm.save();
