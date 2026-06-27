@@ -5,15 +5,15 @@ Custom Frappe / ERPNext v15 app for Marina Fashion Retail supplier costing quote
 ## What This App Adds
 
 - Supplier-facing costing quote document
-- ERPNext Supplier link
-- Item/style reference
+- Supplier name entry
+- Style-number-based quote naming
 - RMB default currency
 - Design/sample image attachment
 - Cost breakdown child table
 - Packaging and logistics child table
 - Size curve child table
 - Internal review child table
-- Pending / Closed status workflow field
+- Pending / Approved / Rejected / Cancelled status controls
 - Supplier portal page at `/supplier-costing`
 
 ## Frappe Cloud Install
@@ -48,7 +48,7 @@ Create supplier users in ERPNext and assign them one of:
 - `Supplier`
 - `Supplier Costing User`
 
-Suppliers can open:
+Suppliers can open the portal below and can access only quotes they own:
 
 `https://YOUR-SITE/supplier-costing`
 
@@ -58,8 +58,7 @@ Internal users can review quotes from the Desk list:
 
 ## Recommended ERPNext Setup
 
-- Keep ERPNext `Supplier` records clean and active.
-- Link each quote to an ERPNext `Item` where available.
-- Use `Pending` while supplier quote is under review.
-- Set `Closed` when the quote is finalized, rejected, or superseded.
-
+- Use `Pending` while a supplier quote is under review.
+- Only Supplier Costing Managers and System Managers can change quote status.
+- Use `Approved`, `Rejected`, or `Cancelled` to record the internal decision.
+- Target pricing, conversion, overhead, margin, and internal review fields are manager-controlled.
