@@ -17,9 +17,3 @@ website_route_rules = [
 web_include_css = [
     "/assets/marina_costing/css/marina_costing.css",
 ]
-
-doc_events = {
-    "Supplier Costing Quote": {
-        "validate": "marina_costing.api.validate_supplier_costing_quote",
-    }
-}
